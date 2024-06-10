@@ -25,7 +25,7 @@ import AllureDockerCleanResultsDialog from "../../components/AllureDockerCleanRe
 import AllureDockerCleanHistoryDialog from "../../components/AllureDockerCleanHistoryDialog/AllureDockerCleanHistoryDialog";
 import AllureDockerSendResultsDialog from "../../components/AllureDockerSendResultsDialog/AllureDockerSendResultsDialog";
 import { redirect, redirectRootInSeconds } from "../../utility/navigate";
-import { isAdmin } from "../../utility/user-actions";
+import { isAdmin, isClearEnabled } from "../../utility/user-actions";
 
 const styles = (theme) => ({
   container: {
@@ -340,7 +340,7 @@ class AllureDockerProject extends Component {
     }
 
     let buttons = [];
-    if (!this.state.projectNotFound) {
+    if (!this.state.projectNotFound && isClearEnabled()) {
       buttons.push(
         <Button
           variant="contained"
@@ -377,24 +377,26 @@ class AllureDockerProject extends Component {
           Generate Report
         </Button>
       );
-      buttons.push(
-        <Button
-          key="clean-results"
-          onClick={this.openCleanResultsDialog}
-          disabled={!isAdmin()}
-        >
-          Clean Results
-        </Button>
-      );
-      buttons.push(
-        <Button
-          key="clean-history"
-          onClick={this.openCleanHistoryDialog}
-          disabled={!isAdmin()}
-        >
-          Clean History
-        </Button>
-      );
+      if (isClearEnabled()) {
+        buttons.push(
+          <Button
+            key="clean-results"
+            onClick={this.openCleanResultsDialog}
+            disabled={!isAdmin()}
+          >
+            Clean Results
+          </Button>
+        );
+        buttons.push(
+          <Button
+            key="clean-history"
+            onClick={this.openCleanHistoryDialog}
+            disabled={!isAdmin()}
+          >
+            Clean History
+          </Button>
+        );
+      }
       buttons.push(
         <Button
           key="get-emailable-report"

@@ -20,3 +20,5 @@ export const setRoles = (roles) => {
 export const setViewerRole = () => {
     localStorage.setItem("roles", JSON.stringify(['viewer']));
 };
+
+export const isClearEnabled = () => window._env_.CLEAR_ENABLED === "true";
