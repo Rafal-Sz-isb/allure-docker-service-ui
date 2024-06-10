@@ -135,7 +135,12 @@ With this configuration you can request the UI in this way too:
 ```sh
 curl http://localhost:5252/my-prefix/allure-docker-service-ui
 ```
-
+#### Enable clearing projects data
+Configure a switch to display buttons related to clearing project data
+```sh
+    environment:
+      CLEAR_ENABLED: "true"
+```
 
 ## SUPPORT
 ### Gitter
